@@ -1,4 +1,7 @@
 {
-  "plugins": ["react"],
-  "extends": [ "qmmr/react" ]
+  "plugins": [ "react" ],
+  "extends": [ "qmmr/react" ],
+  "rules": {
+    "indent": [ 2, "spaces", { "SwitchCase": 1 } ]
+  }
 }
