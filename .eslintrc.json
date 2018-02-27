@@ -2,6 +2,6 @@
   "plugins": [ "react" ],
   "extends": [ "qmmr/react" ],
   "rules": {
-    "indent": [ 2, "spaces", { "SwitchCase": 1 } ]
+    "indent": [ "error", 2 ]
   }
 }
