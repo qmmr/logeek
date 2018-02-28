@@ -8,6 +8,7 @@
     "apollo-link": "1.2.1",
     "apollo-link-http": "1.5.2",
     "babel-eslint": "8.2.2",
+    "dotenv": "5.0.1",
     "graphql": "0.13.1",
     "graphql-tag": "2.8.0",
     "react": "^16.2.0",
