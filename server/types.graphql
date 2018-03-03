@@ -13,8 +13,8 @@ type User @model {
 	id: ID! @isUnique # read-only (managed by Graphcool)
 	createdAt: DateTime! # read-only (managed by Graphcool)
 	updatedAt: DateTime! # read-only (managed by Graphcool)
-	firstName: String!
-	lastName: String!
+	firstName: String
+	lastName: String
 	email: String! @isUnique
 	password: String!
 	logs: [Log!]! @relation(name: "UserLogs")

@@ -10,6 +10,8 @@ interface User {
 interface EventData {
   email: string
   password: string
+  firstName: string
+  lastName: string
 }
 
 const SALT_ROUNDS = 10
@@ -21,15 +23,14 @@ export default async (event: FunctionEvent<EventData>) => {
     const graphcool = fromEvent(event)
     const api = graphcool.api('simple/v1')
 
-    const { email, password } = event.data
+    const { email, password, firstName, lastName } = event.data
 
     if (!validator.isEmail(email)) {
       return { error: 'Not a valid email' }
     }
 
     // check if user exists already
-    const userExists: boolean = await getUser(api, email)
-      .then(r => r.User !== null)
+    const userExists: boolean = await getUser(api, email).then(r => r.User !== null)
     if (userExists) {
       return { error: 'Email already in use' }
     }
@@ -39,7 +40,7 @@ export default async (event: FunctionEvent<EventData>) => {
     const hash = await bcrypt.hash(password, salt)
 
     // create new user
-    const userId = await createGraphcoolUser(api, email, hash)
+    const userId = await createGraphcoolUser(api, email, firstName, lastName, hash)
 
     // generate node token for new User node
     const token = await graphcool.generateNodeToken(userId, 'User')
@@ -67,12 +68,20 @@ async function getUser(api: GraphQLClient, email: string): Promise<{ User }> {
   return api.request<{ User }>(query, variables)
 }
 
-async function createGraphcoolUser(api: GraphQLClient, email: string, password: string): Promise<string> {
+async function createGraphcoolUser(
+  api: GraphQLClient,
+  email: string,
+  password: string,
+  firstName: string,
+  lastName: string
+): Promise<string> {
   const mutation = `
-    mutation createGraphcoolUser($email: String!, $password: String!) {
+    mutation createGraphcoolUser($email: String!, $password: String!, $firstName: String, lastName: String) {
       createUser(
         email: $email,
         password: $password
+        firstName: $firstName
+        lastName: $lastName
       ) {
         id
       }
@@ -81,9 +90,10 @@ async function createGraphcoolUser(api: GraphQLClient, email: string, password: 
 
   const variables = {
     email,
-    password: password,
+    password,
+    firstName,
+    lastName,
   }
 
-  return api.request<{ createUser: User }>(mutation, variables)
-    .then(r => r.createUser.id)
+  return api.request<{ createUser: User }>(mutation, variables).then(r => r.createUser.id)
 }
