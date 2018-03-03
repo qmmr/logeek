@@ -3,9 +3,9 @@
 
 type Log @model {
 	id: ID! @isUnique
-	distance: Number!
-	estimated_distance: Number!
-	reporter: User! @relation(name: "ReporterLogs")
+	distance: Float!
+	estimated_distance: Float!
+	reporter: User! @relation(name: "UserLogs")
 }
 
 type User @model {
