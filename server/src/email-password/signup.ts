@@ -39,9 +39,14 @@ export default async (event: FunctionEvent<EventData>) => {
     // create password hash
     const salt = bcrypt.genSaltSync(SALT_ROUNDS)
     const hash = await bcrypt.hash(password, salt)
+    const isoDate = new Date(dateOfBirth).toISOString()
+
+    if (!isoDate) {
+      return { error: '${dateOfBirth} is not a valid date' }
+    }
 
     // create new user
-    const userId = await createGraphcoolUser(api, email, hash, firstName, lastName, dateOfBirth)
+    const userId = await createGraphcoolUser(api, email, hash, firstName, lastName, isoDate)
 
     // generate node token for new User node
     const token = await graphcool.generateNodeToken(userId, 'User')
@@ -78,7 +83,7 @@ async function createGraphcoolUser(
   dateOfBirth: string
 ): Promise<string> {
   const mutation = `
-    mutation createGraphcoolUser($email: String!, $password: String!, $firstName: String, $lastName: String, $dateOfBirth: String) {
+    mutation createGraphcoolUser($email: String!, $password: String!, $firstName: String, $lastName: String, $dateOfBirth: DateTime) {
       createUser(
         email: $email,
         password: $password,

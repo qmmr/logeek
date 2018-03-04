@@ -9,6 +9,6 @@ extend type Mutation {
     password: String!
     firstName: String
     lastName: String
-    dateOfBirth: String
+    dateOfBirth: DateTime
   ): SignupUserPayload
 }
