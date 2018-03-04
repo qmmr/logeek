@@ -12,6 +12,7 @@ interface EventData {
   password: string
   firstName: string
   lastName: string
+  dateOfBirth: string
 }
 
 const SALT_ROUNDS = 10
@@ -23,7 +24,7 @@ export default async (event: FunctionEvent<EventData>) => {
     const graphcool = fromEvent(event)
     const api = graphcool.api('simple/v1')
 
-    const { email, password, firstName = '', lastName = '' } = event.data
+    const { email, password, firstName, lastName, dateOfBirth } = event.data
 
     if (!validator.isEmail(email)) {
       return { error: 'Not a valid email' }
@@ -40,7 +41,7 @@ export default async (event: FunctionEvent<EventData>) => {
     const hash = await bcrypt.hash(password, salt)
 
     // create new user
-    const userId = await createGraphcoolUser(api, email, hash, firstName, lastName)
+    const userId = await createGraphcoolUser(api, email, hash, firstName, lastName, dateOfBirth)
 
     // generate node token for new User node
     const token = await graphcool.generateNodeToken(userId, 'User')
@@ -73,15 +74,17 @@ async function createGraphcoolUser(
   email: string,
   password: string,
   firstName: string,
-  lastName: string
+  lastName: string,
+  dateOfBirth: string
 ): Promise<string> {
   const mutation = `
-    mutation createGraphcoolUser($email: String!, $password: String!, $firstName: String, $lastName: String) {
+    mutation createGraphcoolUser($email: String!, $password: String!, $firstName: String, $lastName: String, $dateOfBirth: String) {
       createUser(
         email: $email,
         password: $password,
         firstName: $firstName,
-        lastName: $lastName
+        lastName: $lastName,
+        dateOfBirth: $dateOfBirth
       ) {
         id
       }
@@ -91,6 +94,9 @@ async function createGraphcoolUser(
   const variables = {
     email,
     password,
+    firstName,
+    lastName,
+    dateOfBirth,
   }
 
   return api.request<{ createUser: User }>(mutation, variables).then(r => r.createUser.id)
