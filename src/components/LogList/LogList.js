@@ -15,11 +15,12 @@ const LogList = ({ allLogsQuery }) => {
           </div>
         ))
       ) : (
-        <span>Sorry, no logs found 😭</span>
+        <span role='img'>Sorry, no logs found 😭</span>
       )}
     </section>
   )
 }
+/* aria-label aria-labelledby jsx-a11y/accessible-emoji */
 
 const ALL_LOGS_QUERY = gql`
   {
