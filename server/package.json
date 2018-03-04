@@ -8,6 +8,8 @@
     "bcryptjs": "^2.4.3",
     "graphcool-lib": "^0.1.0",
     "graphql-request": "^1.4.0",
+    "tslint": "5.9.1",
+    "typescript": "2.7.2",
     "validator": "^9.0.0"
   }
 }
