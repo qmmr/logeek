@@ -1,3 +1,4 @@
+// @flow
 /* eslint-disable react/jsx-no-bind */
 import React from 'react'
 import { Form, Text } from 'react-form'
@@ -50,15 +51,15 @@ const Login = props => {
   return (
     <section>
       <p>You need to login to access "{from.pathname}"</p>
-      <Form onSubmit={ handleSubmit }>
+      <Form onSubmit={handleSubmit}>
         {formApi => {
           return (
-            <form onSubmit={ formApi.submitForm }>
-              <label htmlFor='email'>email</label>
-              <Text field='email' id='email' />
-              <label htmlFor='password'>password</label>
-              <Text field='password' type='password' id='password' />
-              <button type='submit' className='mb-4 btn btn-primary'>
+            <form onSubmit={formApi.submitForm}>
+              <label htmlFor="email">email</label>
+              <Text field="email" id="email" />
+              <label htmlFor="password">password</label>
+              <Text field="password" type="password" id="password" />
+              <button type="submit" className="mb-4 btn btn-primary">
                 Submit
               </button>
             </form>

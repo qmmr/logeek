@@ -26,11 +26,12 @@
 		"react-scripts": "1.1.1"
 	},
 	"scripts": {
-		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
-		"precommit": "lint-staged"
+		"flow": "flow",
+		"precommit": "lint-staged",
+		"start": "react-scripts start",
+		"test": "react-scripts test --env=jsdom"
 	},
 	"lint-staged": {
 		"src/**/*.{js,jsx,json,css}": [

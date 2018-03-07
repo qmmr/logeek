@@ -1,8 +1,22 @@
+// @flow
 import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-const LogList = ({ allLogsQuery }) => {
+type TLog = {
+  id: string,
+  distance: number,
+  estimatedDistance: number,
+}
+
+type Props = {
+  allLogsQuery: {
+    loading: boolean,
+    allLogs: TLog[],
+  },
+}
+
+const LogList = ({ allLogsQuery }: Props) => {
   return (
     <section>
       <header>Log list</header>
@@ -10,12 +24,12 @@ const LogList = ({ allLogsQuery }) => {
         <span>Looking for logs...</span>
       ) : allLogsQuery.allLogs.length ? (
         allLogsQuery.allLogs.map(log => (
-          <div key={ log.id }>
+          <div key={log.id}>
             {log.distance} - {log.estimatedDistance}
           </div>
         ))
       ) : (
-        <span role='img'>Sorry, no logs found 😭</span>
+        <span role="img">Sorry, no logs found 😭</span>
       )}
     </section>
   )
