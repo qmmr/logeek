@@ -22,12 +22,12 @@ const Login = props => {
     if (token) {
       saveUserData(token)
       // Navigate to home page after mutation returns the token
-      history.push('/logs')
+      history.push('/welcome')
     }
   }
 
   const handleSubmit = ({ email, password }, event, formApi) => {
-    console.log('handleSubmit', event, formApi)
+    // console.log('handleSubmit', event, formApi)
     loginUser({
       authenticateUser: props.authenticateUser,
       email,
@@ -35,9 +35,9 @@ const Login = props => {
       history: props.history,
     })
   }
-  const { from } = props.location.state || { from: { pathname: '/' } }
+  const { from } = (props.location && props.location.state) || { from: { pathname: '/' } }
 
-  if (localStorage.getItem(AUTH_TOKEN)) {
+  if (localStorage.getItem(AUTH_TOKEN) !== '') {
     return (
       <Redirect
         to={{

@@ -9,7 +9,7 @@ eek
 
 ## TODO:
 - [ ] Add user authentication 💪
-- [ ] Add [react-router](https://github.com/ReactTraining/react-router) 🔗
+- [x] Add [react-router](https://github.com/ReactTraining/react-router) 🔗
 - [ ] Setup tests with [circleci.com](https://circleci.com) 👌
 - [ ] Make it a PWA ☎️
 - [ ] Style with [emotion](https://github.com/emotion-js/emotion) 💅
