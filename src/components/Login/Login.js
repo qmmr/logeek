@@ -37,7 +37,7 @@ const Login = props => {
   }
   const { from } = (props.location && props.location.state) || { from: { pathname: '/' } }
 
-  if (localStorage.getItem(AUTH_TOKEN) !== '') {
+  if (localStorage.getItem(AUTH_TOKEN)) {
     return (
       <Redirect
         to={{
