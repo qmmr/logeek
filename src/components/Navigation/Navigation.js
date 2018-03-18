@@ -5,7 +5,7 @@ const Navigation = () => {
   const token = localStorage.getItem('auth-token')
 
   return (
-    <heading>
+    <header>
       <h2>Auth status: {token ? 'logged in' : 'not logged in'}</h2>
       <nav>
         <ul>
@@ -15,7 +15,7 @@ const Navigation = () => {
           <Link to={{ pathname: '/about', search: 'id=search' }}>About</Link>
         </ul>
       </nav>
-    </heading>
+    </header>
   )
 }
 
