@@ -29,12 +29,36 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 export const App = () => {
   const token = localStorage.getItem('auth-token')
+  const styles = {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+    justifyContent: 'center',
+  }
 
   return (
-    <div>
+    <div style={styles}>
       <Navigation />
+
       <Switch>
-        <Route exact path="/" component={Login} />
+        <Route
+          exact
+          path="/"
+          render={() => {
+            return (
+              <article>
+                <h1>Hi! Welcome to</h1>
+                <pre>
+                  <code style={{ fontSize: '4rem' }}>
+                    LOG<br />
+                    EEK
+                  </code>
+                </pre>
+              </article>
+            )
+          }}
+        />
         <Route
           exact
           path="/login"
